@@ -195,12 +195,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               try {
                                 regester.register(
                                     context: context,
-                                    email: nameController.text,
-                                    password: passwordController.text);
+                                    name: nameController.text,
+                                    password: passwordController.text,
+                                     phone: '03333');
                               } catch (e) {
-                                print("sdfghjk");
+                            
                               }
-                              print("press");
+                             
                             },
                             child: Text("Register",
                                 style: TextStyle(

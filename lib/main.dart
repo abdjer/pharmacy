@@ -12,9 +12,7 @@ import 'modules/classMedicen.dart';
 import 'dart:ui_web' as ui;
 
 void main() {
-  ui.platformViewRegistry.registerViewFactory(
-      'example', (_) => DivElement()..innerText = 'Hello, HTML!');
-
+ 
   runApp(MyApp());
 }
 
@@ -40,7 +38,7 @@ class MyApp extends StatelessWidget {
       //home: AddDragScreen(),
       //home: LoginScreen(),
       // home:OrderDetailScreen(nameUser: "ABD AL HAFIZ JERON",orderStatus: "in preparation",mony: true, id: 1,),
-      home: AddDragScreen(),
+     // home: AddDragScreen(),
     );
   }
 }

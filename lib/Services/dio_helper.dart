@@ -1,49 +1,44 @@
 import 'package:dio/dio.dart';
-//import 'package:http/http.dart';
-import '../Services/regester_cubit/cubit.dart';
 
 class DioHelper {
-  static Dio dio = Dio(BaseOptions(
-      baseUrl: 'http://127.0.0.1:8000/', receiveDataWhenStatusError: true));
-  static init() {
-    dio = Dio(BaseOptions(
-        baseUrl: 'http://127.0.0.1:8000/', receiveDataWhenStatusError: true));
-  }
+  static late Dio dio;
 
-  static Future<dynamic> login(
-      {required String email, required String password}) async {
-    return await dio.post(
-      'login',
-      data: {'email': email, 'password': password},
-      // options: Options(
-      //     followRedirects: false,
-      //     validateStatus: (status) {
-      //       return status! < 500;
-      //     })
+  static init() {
+    dio = Dio(
+      BaseOptions(
+        baseUrl: 'http://127.0.0.1:8000/',
+        receiveDataWhenStatusError: true,
+      ),
     );
   }
 
-  ////////////////////////////////////////////////////////////////////////
-  static Future<Response> register(
-      {required String email, required String password}) async {
-    print("http");
-    /* var response = await post(
-        Uri.parse(
-            "http://127.0.0.1:8000/admin/register?name=lpol&email=yjjjh&phone=0957257941&password=uuuuuuu"),
-        headers: {'Custom-Param': 'param_value'});
+  static Future<Response> login(
+      {required String password, required String phone}) async {
+    return await dio
+        .post('admin/login', data: {'password': password, 'phone': phone});
+  }
 
-    return response;*/
-    // return await dio.post(
-    //   "http://127.0.0.1:8000/admin/register?name=lpol&email=yjjjh&phone=0957257941&password=uuuuuuu");
-    return await dio.post(
-        'http://127.0.0.1:8000/admin/register?name=lpol&email=yjjjh&phone=229992&password=uuuuuuu',
+  static Future<Response> register(
+      {required String name,
+      required String password,
+      required String phone,
+      }) async {
+    return await dio.post('admin/register',
         data: {
-          'name': "abd",
-          'email': "email",
-          'phone': "0957257941",
-          'password': "password",
-        }, options: Options(validateStatus: (status) {
-      return status! < 500;
-    }));
+          'name': name,
+          'password': password,
+          'phone': phone,
+          'email': 'aaa'
+        },
+        options: Options(
+            // headers: {
+            //   "Access-Control-Allow-Origin": "*",
+            //   "Access-Control-Allow-Credentials": true,
+            // },
+            headers: {'Accept': 'application/json'},
+            followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            }));
   }
 }

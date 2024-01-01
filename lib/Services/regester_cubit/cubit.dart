@@ -10,10 +10,14 @@ class RegesterCubit extends Cubit<RegesterStates> {
   RegesterCubit() : super(RegesterInitialState());
   static RegesterCubit get(context) => BlocProvider.of(context);
   register(
-      {required context, required String email, required String password}) {
+      {required context,
+      required String name,
+      required String phone,
+      required String password}) {
     emit(RegesterLoadingState());
     print("RegesterCubi");
-    DioHelper.register(email: email, password: password).then((value) {
+    DioHelper.register(phone:phone, password: password, name: name)
+        .then((value) {
       print(value.data);
       if (value.data['message'] == "Registration Succeeded") {
         Navigator.of(context).pushReplacement(
@@ -22,15 +26,16 @@ class RegesterCubit extends Cubit<RegesterStates> {
           ),
         );
 
-        // showToast(
-        //     context: context,
-        //     text: value.data['message'] == "Registration Succeeded"
-        //         ? "WELCOM"
-        //         : "TRY AGAIN",
-        //     color: value.data['message'] == "Registration Succeeded"
-        //         ? Colors.green
-        //         : Colors.red);
+       
       }
+       showToast(
+          context: context,
+          text: value.data['message'] == "Registration Succeeded"
+              ? "WELCOM"
+              : "TRY AGAIN",
+          color: value.data['message'] == "Registration Succeeded"
+              ? Colors.green
+              : Colors.red);
       emit(RegesterSuccessState());
     }).onError((error, stackTrace) {
       print(error.toString());
